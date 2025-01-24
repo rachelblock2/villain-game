@@ -3,15 +3,19 @@ import "./App.css";
 import Menu from "./components/Menu";
 
 function App() {
-  const [gameSetUp, setGameSetUp] = useState(true);
+  const [gameSetUp, setGameSetUp] = useState(false);
+  const [fadeBackground, setFadeBackground] = useState(false);
 
   function beginGameSetup() {
-    setGameSetUp(!gameSetUp);
+    setFadeBackground(!fadeBackground)
+    setTimeout(() => {
+      setGameSetUp(!gameSetUp);
+    }, 500);
   };
 
   return (
     <>
-      <Menu gameSetUp={gameSetUp} beginGameSetup={beginGameSetup} />
+      <Menu gameSetUp={gameSetUp} beginGameSetup={beginGameSetup} fadeBackground={fadeBackground}/>
     </>
   );
 }
