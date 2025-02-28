@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Cabin";
+  src: url("fonts/Cabin-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body,
 #root {
@@ -15,7 +22,7 @@ div.btns {
 div.inner_border {
   height: 98%;
   display: grid;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: 20% 40%;
   flex-direction: column;
   align-items: center;
   border: 2px solid #b4ab5dff;
@@ -106,40 +113,80 @@ div.profile_container {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-rows: 15% 30% 15%;
+  grid-template-rows: auto auto;
+  /* grid-template-rows: 15% 28% 15%; */
   overflow: hidden;
   gap: 1%;
+  position: relative;
+}
+
+div.profile_container > div.board_grid {
+  opacity: 0.7;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.7);
+}
+
+.absolute_profile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+  width: 100%;
+  z-index: 80;
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+div.profile_container > div.board_grid.fade-out-down, div.profile_container > div.board_grid.fade-out-up {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.absolute_profile div.board_grid {
+  box-shadow: 1px 1px 17px 7px #1c1008;
 }
 
 div.board_grid {
+  max-height: 100%;
   display: grid;
   grid-template-columns: 18% 20.5% 20.5% 20.5% 20.5%;
   width: 95%;
-  height: 100%;
+  height: auto;
   align-items: center;
   overflow: hidden;
   margin: auto;
-}
-
-div.board_grid:nth-child(2) {
   border: 1px solid #b4ab5dff;
-}
-
-div.board_grid:nth-child(3) {
-  align-content: center;
-}
-
-div.board_grid:not(:nth-child(-n + 3)) {
-  display: none;
-}
-
-div.board_grid:nth-child(2) {
   background-color: #aa5926;
   background-image: url("images/background_art/texture.jpg"); /* Texture image */
   background-size: cover; /* Adjust texture size */
   background-repeat: no-repeat; /* Prevent tiling */
   background-blend-mode: multiply; /* Blend texture with color */
   background-position: center;
+}
+
+div.board_grid:nth-child(2) {
+  object-fit: cover;
+  object-position: bottom;
+  align-content: end;
+}
+
+div.objective {
+  width: 100%;
+}
+
+div.test {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+img.objective_img {
+  width: 100%;
 }
 
 p.profile_name {
@@ -164,6 +211,66 @@ div.board_background {
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+div.image_icons {
+  position: relative;
+}
+
+div.icons {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  top: 0;
+  color: white;
+  width: 100%;
+  height: 100%;
+  justify-items: center;
+  align-items: center;
+  z-index: 4;
+}
+
+div.icons.three_actions {
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+div.icons div {
+  position: relative;
+}
+
+div.icons p {
+  position: absolute;
+  margin: 0;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #b4ab5dff;
+  font-size: 0.5rem;
+  font-family: "Cabin", serif;
+  font-weight: 700;
+}
+
+div.icons img {
+  margin: 0;
+  border: 3px double #b4ab5dff;
+  font-size: 0.6rem;
+  width: 15px;
+  border-radius: 3rem;
+  padding: 0;
+  background-color: #593016;
+}
+
+div.icons.three_actions div:first-of-type,
+div.icons.three_actions div:nth-of-type(2),
+div.icons.three_actions div:nth-of-type(3) {
+  grid-row: 2/3;
+}
+
+div.icons img:nth-of-type(1),
+div.icons img:nth-of-type(2) {
+  margin: 9% 0 0;
 }
 
 img.board_background_img {
@@ -174,14 +281,42 @@ img.board_background_img {
   border-radius: 6px;
 }
 
+div.board_background .top_actions,
+div.board_background .bottom_actions {
+  position: absolute;
+  width: 90%;
+  align-self: center;
+  border-right: 1px solid #b4ab5dff;
+  border-left: 1px solid #b4ab5dff;
+}
+
+div.board_background .top_actions {
+  height: 27%;
+  top: 0;
+  border-bottom: 1px solid #b4ab5dff;
+  border-radius: 0 0 8px 8px;
+  background-color: #0000002e;
+  z-index: 2;
+}
+
+div.board_background .bottom_actions {
+  height: 19%;
+  bottom: 0;
+  border-top: 1px solid #b4ab5dff;
+  border-radius: 8px 8px 0 0;
+}
+
 p.location_text {
   color: #b4ab5dff;
-  margin: 0;
-  font-size: 0.7rem;
-  margin: 0.4rem auto 0;
+  font-size: 0.35rem;
+  margin: 0.1rem auto 0;
 }
 
 @media screen and (min-width: 460px) {
+  /* div.test {
+    width: 98%;
+  } */
+
   img.menu_title {
     width: 70%;
     margin-top: 4rem;
@@ -191,14 +326,54 @@ p.location_text {
     flex-direction: row;
   }
 
-  div.profile_container {
-    grid-template-rows: 15% 31% 15%;
+  /* div.profile_container {
+    grid-template-rows: 15% 32% 15%;
+  } */
+
+  p.location_text {
+    font-size: 0.42rem;
+    margin: 0.1rem auto 0;
+  }
+
+  div.icons img:nth-of-type(1),
+  div.icons img:nth-of-type(2) {
+    margin: 0;
   }
 }
 
+@media screen and (min-width: 500px) {
+  /* div.test {
+    width: 94%;
+  } */
+}
+
 @media screen and (min-width: 540px) {
-  div.profile_container {
-    grid-template-rows: 15% 36% 15%;
+  /* div.profile_container {
+    grid-template-rows: 15% 37% 15%;
+  } */
+
+  div.icons img {
+    border-radius: 3rem;
+    margin: 0;
+    border: 3px double #b4ab5dff;
+    font-size: 0.6rem;
+    width: 25px;
+    padding: 0;
+    background-color: #593016;
+  }
+
+  /* div.test {
+    width: 95%;
+  } */
+
+  div.icons p {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (min-width: 590px) {
+  div.board_background .bottom_actions {
+    height: 24%;
   }
 }
 
@@ -207,26 +382,90 @@ p.location_text {
     width: 60%;
     margin-top: 4rem;
   }
-  
-  div.profile_container {
-    grid-template-rows: 15% 40% 15%;
+
+  /* div.profile_container {
+    grid-template-rows: 15% 42% 15%;
+  } */
+
+  div.icons img {
+    margin: 0;
+    width: 30px;
+    border: 3px double #b4ab5dff;
+    border-radius: 3rem;
+    padding: 0;
+    background-color: #593016;
+  }
+
+  div.icons img:nth-of-type(1),
+  div.icons img:nth-of-type(2) {
+    /* margin: 0 0 15%; */
+  }
+
+  div.icons.three_actions img {
+    /* margin: 15% 0 0; */
+  }
+
+  div.icons p {
+    top: 45%;
+  }
+
+  div.icons.three_actions p {
+    top: 45%;
+  }
+
+  p.location_text {
+    font-size: 0.5rem;
+    margin: 0.1rem auto 0;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  div.inner_border {
+    grid-template-rows: 20% 50%;
   }
 }
 
 @media screen and (min-width: 730px) {
-  div.profile_container {
-    grid-template-rows: 15% 45% 15%;
+  div.inner_border {
+    grid-template-rows: 20% 60%;
+  }
+
+  div.board_background .bottom_actions {
+    height: 26%;
+  }
+
+  p.location_text {
+    font-size: 0.53rem;
+    margin: 0.1rem auto 0;
   }
 }
 
 @media screen and (min-width: 835px) {
+  div.inner_border {
+    grid-template-rows: 20% 70%;
+  }
+
   img.menu_title {
     width: 50%;
     margin-top: 4rem;
   }
-  
-  div.profile_container {
-    grid-template-rows: 15% 52% 15%;
+
+  /* div.profile_container {
+    grid-template-rows: 15% 54% 15%;
+  } */
+
+  p.location_text {
+    font-size: 0.48rem;
+    margin: 0.1rem auto 0;
+  }
+
+  div.icons img {
+    margin: 0;
+    width: 35px;
+    border: 3px double #b4ab5dff;
+    border-radius: 3rem;
+    padding: 0;
+    background-color: #593016;
   }
 }
 
@@ -235,19 +474,62 @@ p.location_text {
     width: 40%;
     margin-top: 4rem;
   }
-  
-  div.profile_container {
-    grid-template-rows: 15% 59% 15%;
+
+  div.test {
+    width: 90%;
+  }
+
+  div.board_background .bottom_actions {
+    height: 23%;
+  }
+
+  div.icons img {
+    margin: 0;
+    width: 40px;
+    border: 3px double #b4ab5dff;
+    border-radius: 3rem;
+    padding: 0;
+    background-color: #593016;
+  }
+
+  p.location_text {
+    font-size: 0.6rem;
+    margin: 0.1rem auto 0;
+  }
+
+  div.icons p {
+    font-size: 1.1rem;
+  }
+
+  div.icons.three_actions p {
+    top: 48%;
   }
 }
 
 @media screen and (min-width: 1200px) {
+  div.inner_border {
+    grid-template-rows: 15% 80%;
+  }
+
   img.menu_title {
     width: 35%;
     margin-top: 4rem;
   }
-  
-  div.profile_container {
+
+  /* div.profile_container {
     grid-template-rows: 14% 70% 14%;
+  } */
+
+  div.icons img {
+    margin: 0;
+    width: 50px;
+    border: 3px double #b4ab5dff;
+    border-radius: 3rem;
+    padding: 0;
+    background-color: #593016;
+  }
+
+  div.icons p {
+    font-size: 1.3rem;
   }
 }
